@@ -1,8 +1,11 @@
+"use client";
 import GoogleBtn from "@/components/GooleBtn";
 import BlueBtn from "@/components/BlueBtn";
 import Footer from "@/components/Footer";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <main className="min-h-screen flex flex-col ">
       <div className="flex items-center my-auto justify-around p-24 select-none">
@@ -26,7 +29,7 @@ export default function Home() {
 
             <div className="flex flex-col space-y-3 justify-center items-start w-full">
               <p className="font-semibold text-sm">Already have an account?</p>
-              <div className="w-full py-2 text-custom-blue-1 rounded-3xl text-center outline outline-1 outline-gray-500 text-sm transition-all duration-500 hover:scale-105 cursor-pointer">Sign in</div>
+              <div onClick={() => router.push("/login")} className="w-full py-2 text-custom-blue-1 rounded-3xl text-center outline outline-1 outline-gray-500 text-sm transition-all duration-500 hover:scale-105 cursor-pointer">Login</div>
             </div>
           </div>
         </div>
