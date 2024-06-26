@@ -1,10 +1,15 @@
+"use client";
+
 import { Search } from 'lucide-react';
 import BlueBtn from '../BlueBtn';
+import { useRouter } from 'next/navigation';
 
 export default function TrendBar() {
+    const router = useRouter();
+
     return (
         <section className='w-64 flex flex-col justify-start items-start h-screen py-4 gap-7'>
-            <div className="w-full bg-gray-700 text-gray-400 rounded-3xl flex gap-2 py-2 pl-2 justify-start items-center cursor-pointer ">
+            <div onClick={() => router.push("explore")} className="w-full bg-gray-700 text-gray-400 rounded-3xl flex gap-2 py-2 pl-2 justify-start items-center cursor-pointer ">
                 <Search />
                 <p>Search</p>
             </div>

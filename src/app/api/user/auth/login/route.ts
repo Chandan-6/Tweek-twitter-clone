@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
 const prisma = new PrismaClient();
+import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
         userName: user.userName,
         firstName: user.firstName,
         lastName: user.lastName,
+        bio : user.bio,
       },
       { status: 201 }
     );

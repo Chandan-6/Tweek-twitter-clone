@@ -7,5 +7,6 @@ export const UserAtom = atom({
         userName : "",
         firstName : "",
         lastName : "",
+        bio : ""
     }
 });

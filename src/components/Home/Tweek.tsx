@@ -2,7 +2,7 @@ export default function Tweek() {
     return (
         <div className="flex flex-col justify-center items-start p-4">
             <div className='flex justify-center items-center gap-2'>
-                <img src={"/me.jpg"} alt="user" className='rounded-full w-9 h-9' />
+                <img src={"/user.png"} alt="user" className='rounded-full w-9 h-9' />
                 <div className="flex justify-center items-center gap-2">
                     <p className='font-semibold text-sm'>Khamitkar Sai Chandan</p>
                     <p className='text-gray-600 text-sm'>@chandanK_6</p>

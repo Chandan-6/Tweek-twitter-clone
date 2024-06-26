@@ -1,9 +1,17 @@
+"use client";
+
 import SideBar from "@/components/Home/SideBar";
 import TrendBar from "@/components/Home/TrendBar";
 import Tweek from "@/components/Home/Tweek";
 import { ArrowLeft, CalendarDays } from 'lucide-react';
+import { useState } from "react";
+import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
+import { useRecoilValue } from "recoil";
+import { UserAtom } from "@/Store/atom/UserAtom";
 
 export default function Profile() {
+    const { userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
+    const [showModal, setShowModal] = useState<boolean>(false);
     return (
         <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
             <div className="fixed left-36 top-0 w-[20%] min-h-screen">
@@ -23,23 +31,23 @@ export default function Profile() {
                 {/* banner */}
                 <div className="h-screenc w-full">
                     <div className="flex justify-between bg-gray-700 w-full h-44 items-center mb-4 pr-4 relative">
-                        <img src={"/me.jpg"} alt="user" className='rounded-full w-24 h-24 absolute -bottom-10 left-4 outline outline-4 outline-black' />
+                        <img src={"/user.png"} alt="user" className='rounded-full w-24 h-24 absolute -bottom-10 left-4 outline outline-4 outline-black' />
                     </div>
-                    <button className="text-white outline outline-1 outline-gray-500 rounded-3xl px-3 py-1 text-sm font-medium float-right mr-6 mb-6">Edit profile</button>
+                    <button onClick={() => setShowModal(true)} className="text-white outline outline-1 outline-gray-500 rounded-3xl px-3 py-1 text-sm font-medium float-right mr-6 mb-6">Edit profile</button>
 
                     {/* user details */}
                     <div className="mt-16 mb-10 px-4 flex flex-col justify-start items-start gap-4">
 
                         {/* Name and username */}
                         <div className="space-y-1">
-                            <p className="font-bold text-xl">Khamitkar Sai Chandan 🚀</p>
-                            <p className="text-gray-500 text-sm">@chandanK_6</p>
+                            <p className="font-bold text-xl">{lastName}{' '}{firstName}</p>
+                            <p className="text-gray-500 text-sm">@{userName}</p>
                         </div>
 
                         {/* Bio and join date section */}
                         <div className="space-y-2">
-                            <p className="text-sm tracking-wide">Developer</p>
-                            <p className="text-gray-500 flex justify-center items-center gap-2 text-xs"><span><CalendarDays size={17}/></span><span>Joined September 2023</span></p>
+                            <p className="text-sm tracking-wide">{bio}</p>
+                            <p className="text-gray-500 flex justify-start items-start gap-2 text-xs"><span><CalendarDays size={17}/></span><span>Joined September 2023</span></p>
                         </div>
                     </div>
                     <p className="w-fit ml-4 border-b-4 border-custom-blue-1 font-semibold pb-2">Posts</p>
@@ -53,6 +61,7 @@ export default function Profile() {
             <div className="fixed right-20 top-0 w-[20%] min-h-screen">
                 <TrendBar />
             </div>
+            {showModal && <EditProfile onClose={() => setShowModal(false)} />}
         </main>
     )
 };

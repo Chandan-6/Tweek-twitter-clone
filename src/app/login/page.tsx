@@ -38,7 +38,7 @@ export default function Login() {
             const res = await axios.post("/api/user/auth/login", formData);
 
             if (res.data.success) {
-                setUserAtom((prev) => ({ ...prev, email: res.data.email, userName: res.data.userName, firstName: res.data.firstName, lastName: res.data.lastName }))
+                setUserAtom((prev) => ({ ...prev, email: res.data.email, userName: res.data.userName, firstName: res.data.firstName, lastName: res.data.lastName, bio : res.data.bio }))
                 setIsLoading(false);
                 toast.success("Login successfully");
                 router.push("/home");

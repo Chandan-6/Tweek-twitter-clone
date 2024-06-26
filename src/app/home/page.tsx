@@ -21,7 +21,7 @@ export default function Home() {
                     {/* new tweek section */}
                     <div className="flex justify-between items-center mb-4 w-full pr-4">
                         <div className='flex justify-center items-center gap-2 px-4'>
-                            <img src={"/me.jpg"} alt="user" className='rounded-full w-9 h-9' />
+                            <img src={"/user.png"} alt="user" className='rounded-full w-9 h-9' />
                             <div className="my-6">
                                 <input className='font-medium text-lg text-white bg-transparent placeholder-slate-600 outline-none border-none' placeholder="What is happening?!" />
                             </div>
