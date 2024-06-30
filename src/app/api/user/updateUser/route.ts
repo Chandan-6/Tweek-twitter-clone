@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { userName, firstName, lastName, bio } = body;
-    const email = await getDataFromToken(request);
+    const {email} = await getDataFromToken(request);
 
     const user = await prisma.tweekUser.update({
       where: {

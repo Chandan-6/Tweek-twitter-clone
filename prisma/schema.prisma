@@ -22,4 +22,13 @@ model TweekUser {
   password String
   joinedDate DateTime @default(now())
   bio String?
+  tweek Tweek[]
+}
+
+model Tweek {
+  id String @id @default(uuid())
+  content String
+  date DateTime @default(now())
+  userId String 
+  tweekUser TweekUser @relation(fields: [userId], references: [email])
 }

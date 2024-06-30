@@ -9,7 +9,7 @@ export const getDataFromToken = (request: NextRequest) => {
 
         const tokenData = jwt.verify(token, process.env.TOKEN_SECRET!) as tokenInterface;
 
-        return tokenData.email;
+        return tokenData;
     } catch (error: any) {
         throw new Error(error.message);
     }
