@@ -9,9 +9,11 @@ import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
 
-export default function Profile() {
-    const { userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
+export default async function Profile() {
+    const {email, userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [joinedDate, setJoinedDate] = useState<string>("Date not available");
+
     return (
         <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
             <div className="fixed left-36 top-0 w-[20%] min-h-screen">
@@ -47,11 +49,11 @@ export default function Profile() {
                         {/* Bio and join date section */}
                         <div className="space-y-2">
                             <p className="text-sm tracking-wide">{bio}</p>
-                            <p className="text-gray-500 flex justify-start items-start gap-2 text-xs"><span><CalendarDays size={17}/></span><span>Joined September 2023</span></p>
+                            <p className="text-gray-500 flex justify-start items-start gap-2 text-xs"><span><CalendarDays size={17} /></span><span>Joined {joinedDate} </span></p>
                         </div>
                     </div>
                     <p className="w-fit ml-4 border-b-4 border-custom-blue-1 font-semibold pb-2">Posts</p>
-                <Divider />
+                    <Divider />
                 </div>
                 <Tweek />
                 <Divider />

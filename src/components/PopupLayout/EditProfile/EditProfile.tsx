@@ -25,7 +25,7 @@ export default function EditProfile(props: propsInterface) {
         bio: '',
     });
 
-    const { email, userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
+    const { userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
     const setUserAtom = useSetRecoilState(UserAtom);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function EditProfile(props: propsInterface) {
         try {
 
             setIsLoading(true);
-            const res = await axios.post("/api/user/updateUser", { ...formData, email });
+            const res = await axios.post("/api/user/updateUser", formData);
             
             if (res.data.success) {
                 setUserAtom(prev => ({ ...prev, userName: res.data.userName, firstName: res.data.firstName || '', lastName: res.data.lastName || '', bio: res.data.bio || '' }));

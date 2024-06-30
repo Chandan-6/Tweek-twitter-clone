@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import { getDataFromToken } from "@/helpers/getDataFromToken";
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, userName, firstName, lastName, bio } = body;
+    const { userName, firstName, lastName, bio } = body;
+    const email = await getDataFromToken(request);
 
     const user = await prisma.tweekUser.update({
       where: {
