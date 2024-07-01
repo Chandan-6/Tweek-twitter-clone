@@ -4,6 +4,8 @@ import SideBar from "@/components/Home/SideBar";
 import TrendBar from "@/components/Home/TrendBar";
 import Tweek from "@/components/Home/Tweek";
 import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
+import { TweekItem } from "@/helpers/types";
+
 import { ArrowLeft, CalendarDays } from 'lucide-react';
 import { useEffect, useState } from "react";
 import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
@@ -12,18 +14,6 @@ import { UserAtom } from "@/Store/atom/UserAtom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
-interface TweekUser {
-    firstName: string;
-    lastName: string;
-    userName: string;
-}
-
-interface TweekItem {
-    id: string;
-    content: string;
-    date: string;
-    tweekUser: TweekUser;
-}
 
 export default function Profile() {
     const { userName, firstName, lastName, bio } = useRecoilValue(UserAtom);

@@ -3,8 +3,11 @@
 import SideBar from "@/components/Home/SideBar";
 import TrendBar from "@/components/Home/TrendBar";
 import Tweek from "@/components/Home/Tweek";
-import { useState } from "react";
+import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
+import { TweekItem } from "@/helpers/types";
 import Loading from "@/components/Loading";
+
+import { useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -12,7 +15,11 @@ export default function Home() {
 
     const [content, setContent] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [showSkeleton, setShowSkeleton] = useState<boolean>(false);
+    const [allTweeks, setAllTweeks] = useState<TweekItem[]>([]);
+    const [postSaved, setPostSaved] = useState(false);
 
+    // Helps to store the new post in DB
     const post = async () => {
         try {
             setIsLoading(true);
@@ -21,6 +28,7 @@ export default function Home() {
                 setIsLoading(false);
                 toast.success("Post sent successfully.");
                 setContent('');
+                setPostSaved(prev => !prev);
             }
             else{
                 setIsLoading(false);
@@ -31,6 +39,29 @@ export default function Home() {
             toast.error(error.response.data.error);
         }
     }
+
+    // Will render all posts from DB
+    useEffect(() => {
+        const fetchAllTweeks = async () => {
+            try {
+                setShowSkeleton(true);
+                const res = await axios.get("/api/people/tweek");
+
+                if(res.data.success){
+                    let allTweeks = res.data.tweeks;
+                    allTweeks.reverse();
+                    setAllTweeks(allTweeks);
+                    setShowSkeleton(false);
+                }
+                
+            } catch (error:any) {
+                toast.error(error.response.data.error);
+                setShowSkeleton(false);
+            }
+        };
+
+        fetchAllTweeks();
+    },[postSaved]);
 
     return (
             <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
@@ -70,7 +101,13 @@ export default function Home() {
 
                     {/* tweeks from the database will be shown here */}
                     <div className="w-full h-full border-x border-gray-700  flex flex-col justify-start items-start">
-                        <Tweek />
+                        {showSkeleton ? <RepeatedSkeleton/> : allTweeks.map((item) => (
+                        <div key={item.id} className="w-full">
+                            <Tweek firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} />
+                            <Divider />
+                        </div>
+                    ))}
+
                     </div>
                 </section>
 
@@ -85,4 +122,18 @@ export default function Home() {
 
 const Divider = () => {
     return <div className="h-px bg-gray-700 w-full"></div>
+};
+
+
+const RepeatedSkeleton = () =>{
+    return <>
+        <TweekSkeleton/>
+        <Divider />
+        <TweekSkeleton/>
+        <Divider />
+        <TweekSkeleton/>
+        <Divider />
+        <TweekSkeleton/>
+        <Divider />
+    </>
 }
