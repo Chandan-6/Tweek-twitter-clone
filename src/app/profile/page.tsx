@@ -3,16 +3,56 @@
 import SideBar from "@/components/Home/SideBar";
 import TrendBar from "@/components/Home/TrendBar";
 import Tweek from "@/components/Home/Tweek";
+import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { ArrowLeft, CalendarDays } from 'lucide-react';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-export default async function Profile() {
-    const {email, userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
+interface TweekUser {
+    firstName: string;
+    lastName: string;
+    userName: string;
+}
+
+interface TweekItem {
+    id: string;
+    content: string;
+    date: string;
+    tweekUser: TweekUser;
+}
+
+export default function Profile() {
+    const { userName, firstName, lastName, bio } = useRecoilValue(UserAtom);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [joinedDate, setJoinedDate] = useState<string>("Date not available");
+    const [tweeks, setTweeks] = useState<TweekItem[]>([]);
+    const [showSkeleton, setShowSkeleton] = useState<boolean>(false);
+
+    useEffect(() => {
+        const fetchTweeks = async () => {
+            try {
+                setShowSkeleton(true);
+                const res = await axios.get("/api/user/tweek");
+                
+                if(res.data.success){
+                    let allTweeks = res.data.tweeks;
+                    allTweeks.reverse();
+                    setTweeks(allTweeks);
+                    setShowSkeleton(false);
+                }
+            } catch (error:any) {
+                toast.error(error.response.data.error);
+                setShowSkeleton(false);
+            }
+        };
+
+        fetchTweeks();
+    }, []);
+
 
     return (
         <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
@@ -55,8 +95,17 @@ export default async function Profile() {
                     <p className="w-fit ml-4 border-b-4 border-custom-blue-1 font-semibold pb-2">Posts</p>
                     <Divider />
                 </div>
-                <Tweek />
-                <Divider />
+                {
+                    showSkeleton ? <TweekSkeleton/> :  tweeks.map((item) => (
+                        <div key={item.id} className="w-full">
+                            <Tweek firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} />
+                            <Divider />
+                        </div>
+                    ))
+                }
+  
+                
+                
 
             </section>
 
@@ -64,6 +113,7 @@ export default async function Profile() {
                 <TrendBar />
             </div>
             {showModal && <EditProfile onClose={() => setShowModal(false)} />}
+            <Toaster/>
         </main>
     )
 };

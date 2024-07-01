@@ -56,7 +56,7 @@ export default function Home() {
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                             required
-                            rows={10}
+                            rows={5}
                             />
 
                         </div>
@@ -71,19 +71,13 @@ export default function Home() {
                     {/* tweeks from the database will be shown here */}
                     <div className="w-full h-full border-x border-gray-700  flex flex-col justify-start items-start">
                         <Tweek />
-                        <Divider />
-                        <Tweek />
-                        <Divider />
-                        <Tweek />
-                        <Divider />
-                        <Tweek />
-                        <Divider />
                     </div>
                 </section>
 
                 <div className="fixed right-20 top-0 w-[20%] min-h-screen">
                     <TrendBar />
                 </div>
+                <Toaster/>
             </main>
     )
 };

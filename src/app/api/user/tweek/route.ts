@@ -3,6 +3,7 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+// Create new post
 export async function POST(request:NextRequest) {
     try {
 
@@ -28,6 +29,45 @@ export async function POST(request:NextRequest) {
         
     } catch (error) {
         console.error("Error saving new post : ", error);
+        return NextResponse.json(
+          { error: "Internal Server error" },
+          { status: 500 }
+        );
+    } finally{
+        await prisma.$disconnect();
+    }
+};
+
+
+// get all posts belongs to user
+export async function GET(request:NextRequest) {
+    try {
+
+        const {email} = await getDataFromToken(request);
+        if(!email){
+            return NextResponse.json({ error : "Missing Token | Please Login first"}, { status : 400 });
+        }
+
+        const tweeks = await prisma.tweek.findMany({
+            where : {
+                userId : email
+            },
+            include : {
+                tweekUser : {
+                    select : {
+                        userName: true,
+                        firstName: true,
+                        lastName: true
+                    }
+                }
+            }
+        });
+
+        // console.log("all tweeks: ", tweeks);
+        return NextResponse.json({ success : true, tweeks }, { status : 200 });
+        
+    } catch (error) {
+        console.error("Error in fetching tweeks/posts : ", error);
         return NextResponse.json(
           { error: "Internal Server error" },
           { status: 500 }

@@ -1,4 +1,6 @@
 import { atom } from "recoil";
+import { recoilPersist } from 'recoil-persist'
+const { persistAtom } = recoilPersist({key : 'tweek-app'})
 
 interface userInterface {
     email : string,
@@ -19,5 +21,6 @@ const initialUserState: userInterface = {
 
 export const UserAtom = atom<userInterface>({
     key : "UserAtom",
-    default : initialUserState
+    default : initialUserState,
+    effects_UNSTABLE : [persistAtom]
 });
