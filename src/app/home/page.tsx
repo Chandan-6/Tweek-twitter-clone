@@ -7,7 +7,7 @@ import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { TweekItem } from "@/helpers/types";
 import Loading from "@/components/Loading";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -18,6 +18,16 @@ export default function Home() {
     const [showSkeleton, setShowSkeleton] = useState<boolean>(false);
     const [allTweeks, setAllTweeks] = useState<TweekItem[]>([]);
     const [postSaved, setPostSaved] = useState(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const handlePostChange = (e:  ChangeEvent<HTMLTextAreaElement>) => {
+        let textarea = textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto'; // Reset the height
+            textarea.style.height = `${textarea.scrollHeight}px`; // Set new height based on scrollHeight
+        }
+        setContent(e.target.value)
+    }
 
     // Helps to store the new post in DB
     const post = async () => {
@@ -82,12 +92,14 @@ export default function Home() {
                         <img src={"/user.png"} alt="user" className='rounded-full w-9 h-9 mt-6' />
                         <div className="w-full my-6">
                             <textarea 
-                            className='w-full h-fit font-medium text-lg text-white text-justify bg-transparent placeholder-slate-600 outline-none border-none' 
+                            ref={textareaRef}
+                            className='w-full h-fit font-medium text-lg text-white text-justify bg-transparent placeholder-slate-600 outline-none border-none resize-none' 
                             placeholder="What is happening?!"
                             value={content}
-                            onChange={(e) => setContent(e.target.value)}
+                            onChange={(e) => handlePostChange(e)}
+                            style={{ overflow: 'hidden' }} // Hide the scrollbar
                             required
-                            rows={5}
+                            rows={1}
                             />
 
                         </div>
