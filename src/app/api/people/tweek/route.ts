@@ -18,7 +18,7 @@ export async function GET(request:NextRequest) {
             }
         });
 
-        console.log("all tweeks: ", tweeks);
+        // console.log("all tweeks: ", tweeks);
         return NextResponse.json({ success : true, tweeks }, { status : 200 });
         
     } catch (error) {

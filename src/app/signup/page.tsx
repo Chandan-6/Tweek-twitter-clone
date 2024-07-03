@@ -68,7 +68,7 @@ export default function SignUp() {
                     <InputTag handleChange={handleChange} name="userName" labelTxt="Unique Username" placeholder="threadway007" type="text" />
                     <InputTag handleChange={handleChange} name="password" labelTxt="Create a password" placeholder="*****" type="password" />
 
-                    <button type="submit" className="bg-gray-500 font-semibold text-black rounded-3xl py-2 w-full mx-auto self-center">Sign up</button>
+                    <button type="submit" className="bg-gray-500 font-semibold text-black rounded-3xl py-2 w-full mx-auto self-center">{isLoading ? <Loading /> : "Sign up"}</button>
                 </form>
                 <div className="flex justify-center items-center text-xs gap-1">
                     <p className="text-gray-500">Already a user?</p>
