@@ -41,12 +41,29 @@ export async function POST(request:NextRequest) {
 
 // get all posts belongs to user
 export async function GET(request:NextRequest) {
-    try {
 
-        const {email} = await getDataFromToken(request);
-        if(!email){
-            return NextResponse.json({ error : "Missing Token | Please Login first"}, { status : 400 });
+    try {
+        const searchParams = request.nextUrl.searchParams;
+        const auth_user = searchParams.get('auth_user');
+        const email = searchParams.get('email');
+
+
+        if(!email) {
+            return NextResponse.json({ error : "Email is missing", success : false }, { status : 404 });
         }
+
+        const details = await prisma.tweekUser.findUnique({
+            where : {
+                email
+            },
+            select : {
+                firstName : true,
+                lastName : true,
+                userName : true,
+                bio : true,
+                email : true
+            }
+        });
 
         const tweeks = await prisma.tweek.findMany({
             where : {
@@ -61,10 +78,9 @@ export async function GET(request:NextRequest) {
                     }
                 }
             }
-        });
-
-        // console.log("all tweeks: ", tweeks);
-        return NextResponse.json({ success : true, tweeks }, { status : 200 });
+        })
+            
+        return NextResponse.json({ success : true, tweeks, details }, { status : 200 });
         
     } catch (error) {
         console.error("Error in fetching tweeks/posts : ", error);

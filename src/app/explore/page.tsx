@@ -8,7 +8,6 @@ import SimpleUser from "@/components/SimpleUser";
 
 import axios from "axios";
 import { ArrowLeft, Search } from 'lucide-react';
-import { tree } from "next/dist/build/templates/app-page";
 import { ChangeEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -77,7 +76,7 @@ export default function Explore() {
                 <div className="w-full h-full flex flex-col justify-start items-start">
                     {showSkeleton && usersList.length === 0 ? <TweekSkeleton/> : usersList.map((item, index) => ( 
                         <div key={index} className="w-full">
-                            <SimpleUser firstName={item.firstName} lastName={item.lastName} userName={item.userName} />
+                            <SimpleUser firstName={item.firstName} lastName={item.lastName} userName={item.userName} email={item.email}/>
                             <Divider />
                         </div>
                         ))}

@@ -33,9 +33,10 @@ export async function POST(request: NextRequest) {
                 ]
             },
             select : {
+                email : true,
                 firstName : true,
                 lastName : true,
-                userName : true
+                userName : true,
             }
         });
 

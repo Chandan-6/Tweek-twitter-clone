@@ -38,7 +38,7 @@ const list = [
         id : 5,
         logo : User,
         title : "Profile",
-        navigate : "profile"
+        navigate : `profile`
     },
 ];
 
@@ -93,8 +93,14 @@ interface contentsInterface {
 
 const Contents: React.FC<contentsInterface> = ({ logo: Logo, title, navigate }) => {
     const router = useRouter();
+    const { email } = useRecoilValue(UserAtom);
+
+    const handleNavigation = () => {
+        if(navigate === 'profile') { router.push(`profile?auth_user=true&email=${email}`)}
+        else { router.push(navigate)}
+    }
     return(
-        <div onClick={() => router.push(navigate)} className='flex justify-center items-center gap-4 cursor-pointer select-none'>
+        <div onClick={handleNavigation} className='flex justify-center items-center gap-4 cursor-pointer select-none'>
             <Logo className='w-6 h-6 text-white' />
             <p className='text-white font-semibold tracking-wide'>{title}</p>
         </div>
