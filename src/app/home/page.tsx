@@ -112,7 +112,7 @@ export default function Home() {
                 </div>
 
                     {/* tweeks from the database will be shown here */}
-                    <div className="w-full h-full border-x border-gray-700  flex flex-col justify-start items-start">
+                    <div className="w-full h-full flex flex-col justify-start items-start">
                         {showSkeleton ? <RepeatedSkeleton/> : allTweeks.map((item) => (
                         <div key={item.id} className="w-full">
                             <Tweek firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} />
