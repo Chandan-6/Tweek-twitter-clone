@@ -28,7 +28,17 @@ model TweekUser {
 model Tweek {
   id String @id @default(uuid())
   content String
+  likes Like[]
   date DateTime @default(now())
   userId String 
   tweekUser TweekUser @relation(fields: [userId], references: [email])
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+  liker String
+  tweekID String 
+  tweek Tweek @relation(fields: [tweekID], references: [id])
+
+  @@unique([liker, tweekID])
 }

@@ -6,6 +6,8 @@ import Tweek from "@/components/Home/Tweek";
 import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { TweekItem } from "@/helpers/types";
 import Loading from "@/components/Loading";
+import { useRecoilValue } from "recoil";
+import { UserAtom } from "@/Store/atom/UserAtom";
 
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -19,6 +21,8 @@ export default function Home() {
     const [allTweeks, setAllTweeks] = useState<TweekItem[]>([]);
     const [postSaved, setPostSaved] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const { email } = useRecoilValue(UserAtom);
 
     const handlePostChange = (e:  ChangeEvent<HTMLTextAreaElement>) => {
         let textarea = textareaRef.current;
@@ -115,7 +119,7 @@ export default function Home() {
                     <div className="w-full h-full flex flex-col justify-start items-start">
                         {showSkeleton ? <RepeatedSkeleton/> : allTweeks.map((item) => (
                         <div key={item.id} className="w-full">
-                            <Tweek firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} />
+                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} />
                             <Divider />
                         </div>
                     ))}

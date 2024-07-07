@@ -10,6 +10,8 @@ import { TweekItem, TweekUser } from "@/helpers/types";
 import { ArrowLeft, CalendarDays } from 'lucide-react';
 import { useEffect, useState } from "react";
 import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
+import { useRecoilValue } from "recoil";
+import { UserAtom } from "@/Store/atom/UserAtom";
 
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
@@ -18,9 +20,11 @@ import { useSearchParams } from 'next/navigation'
 
 export default function Profile() {
 
+    const { email } = useRecoilValue(UserAtom);
+
     const searchParams = useSearchParams();
     const auth_user = searchParams.get('auth_user');
-    const email = searchParams.get('email');
+    const email_current = searchParams.get('email');
     console.log("authuser : ", auth_user);
     
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -38,7 +42,7 @@ export default function Profile() {
         const fetchTweeks = async () => {
             try {
                 setShowSkeleton(true);
-                const res = await axios.get(`/api/user/tweek?auth_user=${auth_user}&email=${email}`);
+                const res = await axios.get(`/api/user/tweek?auth_user=${auth_user}&email=${email_current}`);
 
                 if(res.data.success){
                     let allTweeks = res.data.tweeks;
@@ -120,7 +124,7 @@ export default function Profile() {
                 {
                     showSkeleton ? <TweekSkeleton/> :  tweeks.map((item) => (
                         <div key={item.id} className="w-full">
-                            <Tweek firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} />
+                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} />
                             <Divider />
                         </div>
                     ))

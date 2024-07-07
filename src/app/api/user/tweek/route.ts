@@ -76,6 +76,13 @@ export async function GET(request:NextRequest) {
                         firstName: true,
                         lastName: true
                     }
+                },
+                likes : {
+                    select : {
+                        id : true,
+                        liker : true,
+                        tweekID : true
+                    }
                 }
             }
         })
