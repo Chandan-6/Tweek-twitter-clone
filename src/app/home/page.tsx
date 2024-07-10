@@ -119,7 +119,15 @@ export default function Home() {
                     <div className="w-full h-full flex flex-col justify-start items-start">
                         {showSkeleton ? <RepeatedSkeleton/> : allTweeks.map((item) => (
                         <div key={item.id} className="w-full">
-                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} />
+                                <Tweek
+                                id={item.id}
+                                firstName={item.tweekUser.firstName}
+                                lastName={item.tweekUser.lastName}
+                                userName={item.tweekUser.userName}
+                                date={item.date} content={item.content}
+                                likes={item.likes}
+                                CurrentUserEmail={email}
+                                bookmarkedUserEmail={item.bookmarks?.[0]?.userId} />
                             <Divider />
                         </div>
                     ))}

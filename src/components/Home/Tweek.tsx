@@ -8,14 +8,20 @@ import axios from "axios";
 export default function Tweek(props: TweekInterface) {
 
     const [liked, setLiked] = useState<boolean>(false);
+    const [bookmark, setBookmark] = useState<boolean>(false);
     const [likeCount, setLikeCount] = useState<number>(props.likes?.length);
 
-  // Determine if the current user has liked the post
-  useEffect(() => {
-    if(props.likes?.length != null){
-        const userHasLiked = props.likes.some((like) => like.liker === props.CurrentUserEmail);
-        setLiked(userHasLiked);
-    }
+    useEffect(() => {
+            
+        // Determine if the current user has liked the post
+        if(props.likes?.length != null){
+            const userHasLiked = props.likes.some((like) => like.liker === props.CurrentUserEmail);
+            setLiked(userHasLiked);
+        }
+
+        // checks if the tweek is bookmarked by the user or not.
+        if(props.bookmarkedUserEmail === props.CurrentUserEmail) { setBookmark(true) };
+
   }, [props.likes, props.CurrentUserEmail]);
 
     const toggleLike = async () => {
@@ -28,6 +34,18 @@ export default function Tweek(props: TweekInterface) {
             }
         } catch (error) {
             console.log("Error with liking of post/tweek", error);
+        }
+    };
+
+    const toggleBookMark = async () => {
+        try {
+            const res = await axios.post("/api/user/bookmarks", {tweekID : props.id})
+
+            if(res.data.success) {
+                setBookmark(!bookmark);
+            }
+        } catch (error) {
+            console.log("Error with book-marking of post/tweek", error);
         }
     }
 
@@ -47,6 +65,8 @@ export default function Tweek(props: TweekInterface) {
             </div>
             <div className="flex justify-between items-center mx-6 mb-3 text-gray-600 cursor-pointer">
                 <MessageCircle size={15} />
+
+                {/* like logic ( api call | toggle ) */}
                 <div onClick={toggleLike} className="flex justify-center items-center space-x-2">
                     {liked ? 
                         <img
@@ -58,7 +78,13 @@ export default function Tweek(props: TweekInterface) {
                         likeCount > 0 && <p className="text-gray-700 text-sm">{likeCount}</p>
                     }
                 </div>
-                <Bookmark size={15} />
+
+                <div onClick={toggleBookMark}>
+                    {
+                        bookmark ? <img onClick={() => setBookmark(!bookmark)} src={"/bookmark.png"} alt="blue bookmark icon"/> : <Bookmark size={15} />
+                    }
+                </div>
+                
             </div>
         </div>
     )

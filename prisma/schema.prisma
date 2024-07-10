@@ -23,6 +23,7 @@ model TweekUser {
   joinedDate DateTime @default(now())
   bio String?
   tweek Tweek[]
+  bookmarks Bookmarks[]
 }
 
 model Tweek {
@@ -32,6 +33,7 @@ model Tweek {
   date DateTime @default(now())
   userId String 
   tweekUser TweekUser @relation(fields: [userId], references: [email])
+  bookmarks Bookmarks[]
 }
 
 model Like {
@@ -41,4 +43,14 @@ model Like {
   tweek Tweek @relation(fields: [tweekID], references: [id])
 
   @@unique([liker, tweekID])
+}
+
+model Bookmarks {
+  id                  Int     @id @default(autoincrement())
+  userId              String
+  tweekUser           TweekUser @relation(fields: [userId], references: [email])
+  bookmarkedTweekId   String
+  tweek               Tweek   @relation(fields: [bookmarkedTweekId], references: [id])
+
+  @@unique([userId, bookmarkedTweekId])
 }

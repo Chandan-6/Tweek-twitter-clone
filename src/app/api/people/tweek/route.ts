@@ -21,6 +21,11 @@ export async function GET(request:NextRequest) {
                         liker : true,
                         tweekID : true
                     }
+                },
+                bookmarks : {
+                    select : {
+                        userId : true
+                    }
                 }
             }
         });
