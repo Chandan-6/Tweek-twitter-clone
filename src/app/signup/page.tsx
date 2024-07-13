@@ -57,9 +57,9 @@ export default function SignUp() {
 
     return (
         <main className="min-h-screen flex flex-col ">
-            <div className="w-[30%] flex flex-col items-center my-auto mx-auto justify-center py-4 px-10 select-none space-y-4 outline outline-1 outline-gray-700 rounded-lg">
-                <img src={"/tweek.png"} alt="tweek logo" className="w-6 h-6 mb-4" />
-                <p className="self-start font-semibold text-lg">Create your Tweek account</p>
+            <div className="w-[30%] flex flex-col items-center my-auto mx-auto justify-center py-4 px-10 select-none space-y-4 outline outline-1 outline-gray-700 rounded-lg lg:w-[40%] md2:w-[60%] sm:w-[70%]">
+                <img src={"/tweek.png"} alt="tweek logo" className="w-6 h-6 mb-4 sm:w-5 sm:h-5" />
+                <p className="self-start font-semibold text-lg sm:text-sm">Create your Tweek account</p>
 
                 <form action="#" onSubmit={onSignUp} className="w-full space-y-5 justify-center items-start" >
                     <InputTag handleChange={handleChange} name="email" labelTxt="Email" placeholder="example@gmail.com" type="email" />
@@ -68,11 +68,11 @@ export default function SignUp() {
                     <InputTag handleChange={handleChange} name="userName" labelTxt="Unique Username" placeholder="threadway007" type="text" />
                     <InputTag handleChange={handleChange} name="password" labelTxt="Create a password" placeholder="*****" type="password" />
 
-                    <button type="submit" className="bg-gray-500 font-semibold text-black rounded-3xl py-2 w-full mx-auto self-center">{isLoading ? <Loading /> : "Sign up"}</button>
+                    <button type="submit" className="bg-gray-500 font-semibold text-black rounded-3xl py-2 w-full mx-auto self-center sm:text-xs">{isLoading ? <Loading /> : "Sign up"}</button>
                 </form>
                 <div className="flex justify-center items-center text-xs gap-1">
                     <p className="text-gray-500">Already a user?</p>
-                    <p onClick={() => router.push("/login")} className="text-custom-blue-1">Login</p>
+                    <p onClick={() => router.push("/login")} className="text-custom-blue-1 ">Login</p>
                 </div>
             </div>
             <Footer />
@@ -92,8 +92,8 @@ interface InputInterface {
 
 const InputTag = (props: InputInterface) => {
     return <div>
-        <label htmlFor={props.name} className="block mb-2 text-sm font-medium text-gray-500 ">{props.labelTxt}</label>
-        <input onChange={(e) => props.handleChange(e)} type={props.type} name={props.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={props.placeholder} required />
+        <label htmlFor={props.name} className="block mb-2 text-sm font-medium text-gray-500  sm:text-xs">{props.labelTxt}</label>
+        <input onChange={(e) => props.handleChange(e)} type={props.type} name={props.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-xs" placeholder={props.placeholder} required />
     </div>
 };
 

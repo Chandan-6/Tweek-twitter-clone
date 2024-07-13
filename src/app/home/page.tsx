@@ -6,6 +6,8 @@ import Tweek from "@/components/Home/Tweek";
 import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { TweekItem } from "@/helpers/types";
 import Loading from "@/components/Loading";
+import BottomNav from "@/components/Home/BottomNav";
+
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
 
@@ -78,15 +80,15 @@ export default function Home() {
     },[postSaved]);
 
     return (
-            <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
-                <div className="fixed left-36 top-0 w-[20%] min-h-screen">
+            <main className="w-[80%] tablet:w-full flex justify-between items-start mx-auto min-h-screen relative">
+                <div className="fixed left-36 lg:left-10 md:left-24 top-0 w-[20%] md2:left-10 min-h-screen">
                     <SideBar />
                 </div>
 
                 {/* tweek section */}
-                <section className="w-[50%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto">
+                <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                     <div className="w-full self-center px-4">
-                        <p className="w-fit pb-2 border-b-4 border-custom-blue-1 font-semibold ">For you</p>
+                        <p className="w-fit pb-2 border-b-4 border-custom-blue-1 font-semibold md2:text-sm">For you</p>
                     </div>
                     <Divider />
 
@@ -97,7 +99,7 @@ export default function Home() {
                         <div className="w-full my-6">
                             <textarea 
                             ref={textareaRef}
-                            className='w-full h-fit font-medium text-lg text-white text-justify bg-transparent placeholder-slate-600 outline-none border-none resize-none' 
+                            className='w-full h-fit font-medium text-lg md2:text-sm text-white text-justify bg-transparent placeholder-slate-600 outline-none border-none resize-none' 
                             placeholder="What is happening?!"
                             value={content}
                             onChange={(e) => handlePostChange(e)}
@@ -139,6 +141,7 @@ export default function Home() {
                     <TrendBar />
                 </div>
                 <Toaster/>
+                <BottomNav textareaRef={textareaRef}/>
             </main>
     )
 };
