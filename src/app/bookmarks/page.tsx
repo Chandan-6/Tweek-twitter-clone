@@ -7,14 +7,17 @@ import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { TweekItem } from "@/helpers/types";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
+import BottomNav from "@/components/Home/BottomNav";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Bookmarks() {
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    // Keeping null to avoid error
+    const textareaRef = useRef(null);
+
     const [showSkeleton, setShowSkeleton] = useState<boolean>(false);
     const [allBookmarks, setAllBookmarks] = useState<TweekItem[]>([]);
 
@@ -45,15 +48,15 @@ export default function Bookmarks() {
     },[]);
 
     return (
-            <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
-                <div className="fixed left-36 top-0 w-[20%] min-h-screen">
+            <main className="w-[80%] tablet:w-full flex justify-between items-start mx-auto min-h-screen relative">
+                <div className="fixed left-36 lg:left-10 md:left-24 top-0 w-[20%] md2:left-10 min-h-screen">
                     <SideBar />
                 </div>
 
                 {/* tweek section */}
-                <section className="w-[50%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto">
+                <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                     <div className="w-full self-center px-4">
-                        <p className="w-fit pb-2 border-b-4 border-custom-blue-1 font-semibold ">Your Bookmarks</p>
+                        <p className="w-fit pb-2 border-b-4 border-custom-blue-1 font-semibold md2:text-sm">Your Bookmarks</p>
                     </div>
                     <Divider />
 
@@ -83,6 +86,7 @@ export default function Bookmarks() {
                     <TrendBar />
                 </div>
                 <Toaster/>
+                <BottomNav textareaRef={textareaRef}/>
             </main>
     )
 };

@@ -5,13 +5,17 @@ import TrendBar from "@/components/Home/TrendBar";
 import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { TweekUser } from "@/helpers/types";
 import SimpleUser from "@/components/SimpleUser";
+import BottomNav from "@/components/Home/BottomNav";
 
 import axios from "axios";
 import { ArrowLeft, Search } from 'lucide-react';
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Explore() {
+
+    // Keeping null to avoid error
+    const textareaRef = useRef(null);
 
     const [searchFocus, setSearchFocus] = useState<boolean>(false);
     const [searchInput, setSearchInput] = useState<string>('');
@@ -53,20 +57,20 @@ export default function Explore() {
     }
 
     return (
-        <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
-            <div className="fixed left-36 top-0 w-[20%] min-h-screen">
+        <main className="w-[80%] tablet:w-full flex justify-between items-start mx-auto min-h-screen relative">
+            <div className="fixed left-36 lg:left-10 md:left-24 top-0 w-[20%] md2:left-10 min-h-screen">
                 <SideBar />
             </div>
 
             {/* search section */}
-            <section className="w-[50%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto">
+            <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                 <div className="w-full self-center px-4 flex justify-start items-start gap-3 pb-2 mb-4">
                     <div className="hover:bg-gray-500 hover:bg-opacity-50 hover:rounded-full realtive w-7 h-7 flex justify-center items-center">
                         <ArrowLeft className="text-gray-400 absolute" />
                     </div>
                     <div onChange={handleFocus} onClick={handleFocus} className={`w-full bg-gray-700 text-gray-400 rounded-3xl flex gap-2 py-2 pl-2 justify-start items-center cursor-pointer ${searchFocus && "outline outline-4 outline-custom-blue-1" } `}>
-                        <Search />
-                        <input onChange={(e) => handleChange(e)} type="text" className="border-none outline-none bg-transparent w-full pr-1 overflow-x-hidden" name="searchBar" placeholder="Search" />
+                        <Search className="tablet:size-5"/>
+                        <input onChange={(e) => handleChange(e)} type="text" className="border-none outline-none bg-transparent w-full pr-1 overflow-x-hidden tablet:text-sm" name="searchBar" placeholder="Search" />
                     </div>
                 </div>
                 <p className="w-fit ml-4 border-b-4 border-custom-blue-1 font-semibold pb-2">People</p>
@@ -89,6 +93,7 @@ export default function Explore() {
                 <TrendBar />
             </div>
             <Toaster/>
+            <BottomNav textareaRef={textareaRef}/>
         </main>
     )
 };

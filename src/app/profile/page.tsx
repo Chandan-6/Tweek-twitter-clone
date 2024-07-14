@@ -8,8 +8,9 @@ import { ProfileSkeleton, SingleSkeleton } from "@/components/Skeleton/ProfileSk
 import { TweekItem, TweekUser } from "@/helpers/types";
 
 import { ArrowLeft, CalendarDays } from 'lucide-react';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
+import BottomNav from "@/components/Home/BottomNav";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
 
@@ -19,8 +20,10 @@ import { useSearchParams } from 'next/navigation'
 
 
 export default function Profile() {
-
+    
     const { email } = useRecoilValue(UserAtom);
+    // Keeping null to avoid error
+    const textareaRef = useRef(null);
 
     const searchParams = useSearchParams();
     const auth_user = searchParams.get('auth_user');
@@ -68,20 +71,20 @@ export default function Profile() {
 
 
     return (
-        <main className="w-[80%] flex justify-between items-start mx-auto min-h-screen relative">
-            <div className="fixed left-36 top-0 w-[20%] min-h-screen">
+        <main className="w-[80%] tablet:w-full flex justify-between items-start mx-auto min-h-screen relative">
+            <div className="fixed left-36 lg:left-10 md:left-24 top-0 w-[20%] md2:left-10 min-h-screen">
                 <SideBar />
             </div>
 
             {/* Profile section */}
-            <section className="w-[50%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto">
+            <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                 <div className="w-full self-center px-4 flex justify-start items-start gap-3 pb-2">
                     <div className="hover:bg-gray-500 hover:bg-opacity-50 hover:rounded-full realtive w-7 h-7 flex justify-center items-center">
-                        <ArrowLeft className="text-gray-400 absolute" />
+                        <ArrowLeft className="text-gray-400 absolute tablet:size-5" />
                     </div>
 
                     {
-                        showSkeleton ? <SingleSkeleton /> : <p className="w-fit font-semibold ">{userDetails?.lastName}{' '}{userDetails?.firstName}</p>
+                        showSkeleton ? <SingleSkeleton /> : <p className="w-fit font-semibold tablet:text-sm ">{userDetails?.lastName}{' '}{userDetails?.firstName}</p>
                     }
                     
                 </div>
@@ -90,27 +93,27 @@ export default function Profile() {
                 {/* banner */}
                 <div className="h-screenc w-full">
                     <div className="flex justify-between bg-gray-700 w-full h-44 items-center mb-4 pr-4 relative">
-                        <img src={"/user.png"} alt="user" className='rounded-full w-24 h-24 absolute -bottom-10 left-4 outline outline-4 outline-black' />
+                        <img src={"/user.png"} alt="user" className='rounded-full w-24 h-24 md:w-20 md:h-20 absolute -bottom-10 left-4 outline outline-4 outline-black' />
                     </div>
 
                     {/* Edit profile option is only visible to auth_user */}
                     {
-                        auth_user === 'true' ?  <button onClick={() => setShowModal(true)} className="text-white outline outline-1 outline-gray-500 rounded-3xl px-3 py-1 text-sm font-medium float-right mr-6 mb-6">Edit profile</button> : ''
+                        auth_user === 'true' ?  <button onClick={() => setShowModal(true)} className="text-white outline outline-1 outline-gray-500 rounded-3xl px-3 py-1 text-sm font-medium float-right mr-6 mb-6 tablet:z-50">Edit profile</button> : ''
                     }
 
                     {/* user details */}
                     {
-                        showSkeleton ? <ProfileSkeleton /> : <div className="mt-16 mb-10 px-4 flex flex-col justify-start items-start gap-4">
+                        showSkeleton ? <ProfileSkeleton /> : <div className="tablet:w-full mt-16 mb-10 px-4 flex flex-col justify-start items-start gap-4">
 
                             {/* Name and username */}
                             <div className="space-y-1">
-                                <p className="font-bold text-xl">{userDetails?.lastName}{' '}{userDetails?.firstName}</p>
+                                <p className="font-bold text-xl md:text-base tablet:text-sm tablet:tracking-wide">{userDetails?.lastName}{' '}{userDetails?.firstName}</p>
                                 <p className="text-gray-500 text-sm">@{userDetails?.userName}</p>
                             </div>
 
                             {/* Bio and join date section */}
                             <div className="space-y-2">
-                                <p className="text-sm tracking-wide">{userDetails?.bio}</p>
+                                <p className="text-sm tracking-wide tablet:text-white/80 ">{userDetails?.bio}</p>
                                 <p className="text-gray-500 flex justify-start items-start gap-2 text-xs"><span><CalendarDays size={17} /></span><span>Joined {joinedDate} </span></p>
                             </div>
                         </div>
@@ -124,7 +127,7 @@ export default function Profile() {
                 {
                     showSkeleton ? <TweekSkeleton/> :  tweeks.map((item) => (
                         <div key={item.id} className="w-full">
-                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} />
+                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} bookmarkedUserEmail={""} />
                             <Divider />
                         </div>
                     ))
@@ -139,6 +142,7 @@ export default function Profile() {
             {/* OnClick Edit profile will appear */}
             {showModal && <EditProfile onClose={() => setShowModal(false)} />}
             <Toaster/>
+            <BottomNav textareaRef={textareaRef}/>
         </main>
     )
 };

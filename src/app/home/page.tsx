@@ -14,6 +14,8 @@ import { UserAtom } from "@/Store/atom/UserAtom";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import FixedLogo from "@/components/MobileMode/FixedLogo";
+import FixedSettings from "@/components/MobileMode/FixedSettings";
 
 export default function Home() {
 
@@ -84,7 +86,7 @@ export default function Home() {
                 <div className="fixed left-36 lg:left-10 md:left-24 top-0 w-[20%] md2:left-10 min-h-screen">
                     <SideBar />
                 </div>
-
+                <FixedLogo/>
                 {/* tweek section */}
                 <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                     <div className="w-full self-center px-4">
@@ -139,6 +141,10 @@ export default function Home() {
 
                 <div className="fixed right-20 top-0 w-[20%] min-h-screen">
                     <TrendBar />
+                </div>
+                <div className="hidden tablet:block">
+
+                <FixedSettings/>
                 </div>
                 <Toaster/>
                 <BottomNav textareaRef={textareaRef}/>

@@ -66,61 +66,61 @@ export default function EditProfile(props: propsInterface) {
         <div>
 
             <PopupLayout onClose={props.onClose}>
-                <div className="mt-10  flex flex-col gap-5 text-white">
+                <div className="mt-10 flex flex-col gap-5 text-white py-7">
                     <button onClick={props.onClose} className="place-self-end">
                         <X size={30} />
                     </button>
                     <div className="w-[500px] min-h-72 py-6 px-4 flex flex-col items-center bg-black/80 rounded-xl space-y-5 shadow-lg shadow-gray-800">
                         <div className={`w-full border-b border-gray-700 rounded-t-2xl`}>
                             <div className={`flex flex-col space-y-3 items-center py-6  rounded-t-2xl`}>
-                                <p className=" text-2xl font-medium text-white ">Edit your profile</p>
+                                <p className=" text-2xl tablet:text-lg font-medium text-white ">Edit your profile</p>
                             </div>
                         </div>
                         <form onSubmit={onSubmit} className="w-full space-y-5 flex flex-col items-center">
 
-                            <label className="text-left " htmlFor="firstName">First Name</label>
+                            <label className="text-left tablet:text-sm " htmlFor="firstName">First Name</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
                                 name="firstName"
                                 required
                                 value={formData.firstName}
-                                className=" w-[70%] rounded-md shadow-lg p-2 text-black no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
+                                className=" w-[70%] rounded-md shadow-lg p-2 text-black tablet:text-xs no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
                             />
 
-                            <label className="text-left " htmlFor="lastName">Last name</label>
+                            <label className="text-left tablet:text-sm " htmlFor="lastName">Last name</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
                                 name="lastName"
                                 required
                                 value={formData.lastName}
-                                className=" w-[70%] rounded-md shadow-lg p-2 text-black no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
+                                className=" w-[70%] rounded-md shadow-lg p-2 text-black tablet:text-xs no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
                             />
 
-                            <label className="text-left " htmlFor="userName">User Name</label>
+                            <label className="text-left tablet:text-sm " htmlFor="userName">User Name</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
                                 name="userName"
                                 required
                                 value={formData.userName}
-                                className=" w-[70%] rounded-md shadow-lg p-2 text-black no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
+                                className=" w-[70%] rounded-md shadow-lg p-2 text-black tablet:text-xs no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
                             />
-                            <label className="text-left " htmlFor="bio">Bio</label>
+                            <label className="text-left tablet:text-sm " htmlFor="bio">Bio</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
                                 name="bio"
                                 required
                                 value={formData.bio}
-                                className=" w-[70%] rounded-md shadow-lg p-2 text-black no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
+                                className=" w-[70%] rounded-md shadow-lg p-2 text-black tablet:text-xs no-arrows border bg-gray-100/25 border-gray-300 outline-1 outline-gray-300"
                             />
 
                             <button type="submit"
                                 className="flex justify-center items-center gap-3 bg-blue-500 px-6 py-2 rounded-lg hover:bg-blue-700 hover:focus:ring-1 ring-slate-800 active shadow-sm shadow-slate-800"
                             >
-                                {isLoading ? <Loading /> : <><SendHorizontal /><span>Save</span></>}
+                                {isLoading ? <Loading /> : <><SendHorizontal className="tablet:size-5" /><span className="tablet:text-xs">Save</span></>}
                                 
                             </button>
                         </form>
