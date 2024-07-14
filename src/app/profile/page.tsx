@@ -6,6 +6,7 @@ import Tweek from "@/components/Home/Tweek";
 import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { ProfileSkeleton, SingleSkeleton } from "@/components/Skeleton/ProfileSkeleton";
 import { TweekItem, TweekUser } from "@/helpers/types";
+import { formatYearMonth } from "@/lib/formatYearMonth";
 
 import { ArrowLeft, CalendarDays } from 'lucide-react';
 import { useEffect, useState, useRef } from "react";
@@ -58,6 +59,8 @@ export default function Profile() {
                             userName : res.data.details.userName,
                             bio : res.data.details.bio
                         }))
+                        setJoinedDate(formatYearMonth(res.data.details.joinedDate))
+
                     setShowSkeleton(false);
                 }
             } catch (error:any) {

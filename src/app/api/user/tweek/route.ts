@@ -61,7 +61,8 @@ export async function GET(request:NextRequest) {
                 lastName : true,
                 userName : true,
                 bio : true,
-                email : true
+                email : true,
+                joinedDate : true
             }
         });
 
