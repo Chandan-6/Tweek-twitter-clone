@@ -7,6 +7,8 @@ import TweekSkeleton from "@/components/Skeleton/TweekSkeleton";
 import { TweekItem } from "@/helpers/types";
 import Loading from "@/components/Loading";
 import BottomNav from "@/components/Home/BottomNav";
+import FixedLogo from "@/components/MobileMode/FixedLogo";
+import FixedSettings from "@/components/MobileMode/FixedSettings";
 
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
@@ -14,8 +16,6 @@ import { UserAtom } from "@/Store/atom/UserAtom";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import FixedLogo from "@/components/MobileMode/FixedLogo";
-import FixedSettings from "@/components/MobileMode/FixedSettings";
 
 export default function Home() {
 
@@ -114,7 +114,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="w-full flex flex-col justify-end items-end">
-                    <button onClick={post} className="w-24 float-right bg-custom-blue-1 text-white font-medium text-xs rounded-3xl m-4 py-2 text-center cursor-pointer transition-all duration-500 hover:scale-105 ">{isLoading ? <Loading/> : 'POST'}
+                    <button onClick={post} className="w-24 float-right bg-custom-blue-1 text-white font-medium text-xs rounded-3xl m-4 py-2 text-center cursor-pointer transition-all duration-500 hover:scale-105 tablet:z-20">{isLoading ? <Loading/> : 'POST'}
                     </button>
                     <Divider />
                 </div>
@@ -143,8 +143,7 @@ export default function Home() {
                     <TrendBar />
                 </div>
                 <div className="hidden tablet:block">
-
-                <FixedSettings/>
+                    <FixedSettings/>
                 </div>
                 <Toaster/>
                 <BottomNav textareaRef={textareaRef}/>

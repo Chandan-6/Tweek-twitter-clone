@@ -66,11 +66,11 @@ export default function EditProfile(props: propsInterface) {
         <div>
 
             <PopupLayout onClose={props.onClose}>
-                <div className="mt-10 flex flex-col gap-5 text-white py-7">
-                    <button onClick={props.onClose} className="place-self-end">
+                <div className="w-full mt-10 flex flex-col gap-5 text-white py-7 justify-center items-center">
+                    <button onClick={props.onClose} className="w-[60%] mx-auto place-self-end">
                         <X size={30} />
                     </button>
-                    <div className="w-[500px] min-h-72 py-6 px-4 flex flex-col items-center bg-black/80 rounded-xl space-y-5 shadow-lg shadow-gray-800">
+                    <div className="w-[60%] tablet:w-[80%] min-h-72 py-6 px-4 flex flex-col items-center bg-black/80 rounded-xl space-y-5 shadow-lg shadow-gray-800">
                         <div className={`w-full border-b border-gray-700 rounded-t-2xl`}>
                             <div className={`flex flex-col space-y-3 items-center py-6  rounded-t-2xl`}>
                                 <p className=" text-2xl tablet:text-lg font-medium text-white ">Edit your profile</p>

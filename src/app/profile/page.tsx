@@ -17,7 +17,9 @@ import { UserAtom } from "@/Store/atom/UserAtom";
 
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
+import FixedSettings from "@/components/MobileMode/FixedSettings";
+import FixedLogo from "@/components/MobileMode/FixedLogo";
 
 
 export default function ProfilePage(){
@@ -31,6 +33,7 @@ export default function ProfilePage(){
 
 function Profile() {
     
+    const router = useRouter();
     const { email } = useRecoilValue(UserAtom);
     // Keeping null to avoid error
     const textareaRef = useRef(null);
@@ -88,11 +91,13 @@ function Profile() {
                 <SideBar />
             </div>
 
+            <FixedLogo/>
+
             {/* Profile section */}
             <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                 <div className="w-full self-center px-4 flex justify-start items-start gap-3 pb-2">
                     <div className="hover:bg-gray-500 hover:bg-opacity-50 hover:rounded-full realtive w-7 h-7 flex justify-center items-center">
-                        <ArrowLeft className="text-gray-400 absolute tablet:size-5" />
+                        <ArrowLeft onClick={() => router.push("/home")}  className="text-gray-400 absolute tablet:size-5 tablet:z-20" />
                     </div>
 
                     {
@@ -110,7 +115,7 @@ function Profile() {
 
                     {/* Edit profile option is only visible to auth_user */}
                     {
-                        auth_user === 'true' ?  <button onClick={() => setShowModal(true)} className="text-white outline outline-1 outline-gray-500 rounded-3xl px-3 py-1 text-sm font-medium float-right mr-6 mb-6 tablet:z-50">Edit profile</button> : ''
+                        auth_user === 'true' ?  <button onClick={() => setShowModal(true)} className="text-white outline outline-1 outline-gray-500 rounded-3xl px-3 py-1 text-sm font-medium float-right mr-6 mb-6 tablet:z-auto">Edit profile</button> : ''
                     }
 
                     {/* user details */}
@@ -147,12 +152,16 @@ function Profile() {
 
             </section>
 
-            <div className="fixed right-20 top-0 w-[20%] min-h-screen">
+            <div className="fixed right-20 top-0 w-[20%] min-h-screen md:hidden">
                 <TrendBar />
             </div>
 
             {/* OnClick Edit profile will appear */}
             {showModal && <EditProfile onClose={() => setShowModal(false)} />}
+            <div className="hidden tablet:block">
+
+                <FixedSettings />
+            </div>
             <Toaster/>
             <BottomNav textareaRef={textareaRef}/>
         </main>
