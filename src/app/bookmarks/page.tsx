@@ -8,6 +8,8 @@ import { TweekItem } from "@/helpers/types";
 import { useRecoilValue } from "recoil";
 import { UserAtom } from "@/Store/atom/UserAtom";
 import BottomNav from "@/components/Home/BottomNav";
+import FixedLogo from "@/components/MobileMode/FixedLogo";
+import FixedSettings from "@/components/MobileMode/FixedSettings";
 
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -53,6 +55,8 @@ export default function Bookmarks() {
                     <SideBar />
                 </div>
 
+                <FixedLogo/>
+
                 {/* tweek section */}
                 <section className="w-[50%] lg:w-[53%] md:w-[70%] tablet:w-[80%] h-screen outline outline-1 outline-gray-700 pt-4 flex flex-col justify-start items-start overflow-y-scroll scroll-container mx-auto lg:mr-56 md:mr-0 tablet:mx-auto">
                     <div className="w-full self-center px-4">
@@ -85,6 +89,10 @@ export default function Bookmarks() {
                 <div className="fixed right-20 top-0 w-[20%] min-h-screen">
                     <TrendBar />
                 </div>
+                <div className="hidden tablet:block">
+                    <FixedSettings/>
+                </div>
+                
                 <Toaster/>
                 <BottomNav textareaRef={textareaRef}/>
             </main>
