@@ -9,7 +9,7 @@ import { TweekItem, TweekUser } from "@/helpers/types";
 import { formatYearMonth } from "@/lib/formatYearMonth";
 
 import { ArrowLeft, CalendarDays } from 'lucide-react';
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import EditProfile from "@/components/PopupLayout/EditProfile/EditProfile";
 import BottomNav from "@/components/Home/BottomNav";
 import { useRecoilValue } from "recoil";
@@ -20,7 +20,16 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams } from 'next/navigation'
 
 
-export default function Profile() {
+export default function ProfilePage(){
+    return(
+        <Suspense>
+            <Profile/>
+        </Suspense>
+    )
+} 
+
+
+function Profile() {
     
     const { email } = useRecoilValue(UserAtom);
     // Keeping null to avoid error

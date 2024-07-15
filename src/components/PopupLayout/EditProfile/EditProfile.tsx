@@ -30,7 +30,7 @@ export default function EditProfile(props: propsInterface) {
 
     useEffect(() => {
         setFormData(prev => ({ ...prev, userName, firstName, lastName, bio }));
-    }, []);
+    }, [userName, firstName, lastName, bio]);
 
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
