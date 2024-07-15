@@ -8,10 +8,18 @@ export function middleware(request: NextRequest) {
   console.log("Path = ", path);
 
   const isPublicPath = path === "/login" || path === "/signup";
+  const isRootPath = path === "/";
 
   const token = request.cookies.get("tweek_token")?.value || "";
+
+  if(isRootPath){
+    if(token){
+      return  NextResponse.redirect(new URL('/home', request.nextUrl));
+    }
+  }
+
   if(isPublicPath && token){
-    return NextResponse.redirect(new URL('/', request.nextUrl));
+    return NextResponse.redirect(new URL('/home', request.nextUrl));
   }
 
   if(!isPublicPath && !token){

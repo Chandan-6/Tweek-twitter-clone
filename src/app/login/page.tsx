@@ -73,7 +73,7 @@ export default function Login() {
                 </form>
                 <div className="flex justify-center items-center text-xs gap-1 ">
                     <p className="text-gray-500">Don't have an account?</p>
-                    <p onClick={() => router.push("/signup")} className="text-custom-blue-1">Sign up</p>
+                    <p onClick={() => router.push("/signup")} className="text-custom-blue-1 cursor-pointer">Sign up</p>
                 </div>
             </div>
             <Footer />

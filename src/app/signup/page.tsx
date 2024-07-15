@@ -72,7 +72,7 @@ export default function SignUp() {
                 </form>
                 <div className="flex justify-center items-center text-xs gap-1">
                     <p className="text-gray-500">Already a user?</p>
-                    <p onClick={() => router.push("/login")} className="text-custom-blue-1 ">Login</p>
+                    <p onClick={() => router.push("/login")} className="text-custom-blue-1 cursor-pointer">Login</p>
                 </div>
             </div>
             <Footer />
