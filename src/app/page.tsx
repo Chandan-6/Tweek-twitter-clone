@@ -16,7 +16,7 @@ export default function Home() {
           <div className=" w-fit flex flex-col space-y-6 mobile:space-y-4 justify-center items-center">
             <div className="flex flex-col space-y-2 justify-center items-start w-full">
               <p className="font-bold self-start text-lg">Join today.</p>
-              <GoogleBtn />
+              <GoogleBtn btnTxt="Sign in with google"/>
             </div>
 
             <div className="flex justify-center items-center">
