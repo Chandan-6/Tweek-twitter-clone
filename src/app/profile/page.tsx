@@ -36,6 +36,7 @@ function Profile() {
     
     const { data : session } = useSession();
     const imgSrc = session?.user?.image || "/user.png";
+
     const router = useRouter();
     const { email } = useRecoilValue(UserAtom);
     // Keeping null to avoid error
