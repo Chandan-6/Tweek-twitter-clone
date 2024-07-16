@@ -8,6 +8,7 @@ interface userInterface {
     firstName : string,
     lastName : string,
     bio : string,
+    userProfile : string,
 };
 
 const initialUserState: userInterface = {
@@ -15,7 +16,8 @@ const initialUserState: userInterface = {
     userName: "",
     firstName: "",
     lastName: "",
-    bio: ""
+    bio: "",
+    userProfile : '"'
 };
 
 

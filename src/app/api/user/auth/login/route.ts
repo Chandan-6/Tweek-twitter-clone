@@ -53,6 +53,7 @@ export async function POST(request: NextRequest) {
         firstName: user.firstName,
         lastName: user.lastName,
         bio : user.bio,
+        userProfile : user.userProfile
       },
       { status: 201 }
     );

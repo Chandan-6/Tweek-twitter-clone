@@ -78,7 +78,8 @@ export default function Bookmarks() {
                                 content={item.tweek.content}
                                 likes={item.tweek.likes}
                                 CurrentUserEmail={email}
-                                bookmarkedUserEmail={item.userId} />
+                                bookmarkedUserEmail={item.userId} 
+                                userProfile={item.tweekUser.userProfile}/>
                             <Divider />
                         </div>
                     ))}

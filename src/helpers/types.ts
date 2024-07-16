@@ -6,6 +6,7 @@ export interface TweekUser {
     lastName: string;
     userName: string;
     bio? : string,
+    userProfile? : string
 }
 
 export interface TweekItem {
@@ -29,5 +30,6 @@ export interface TweekInterface {
     content : string,
     likes : Array<{ id: number; liker: string; tweekID: string }>
     CurrentUserEmail : string
-    bookmarkedUserEmail : string
+    bookmarkedUserEmail : string,
+    userProfile? : string
 };

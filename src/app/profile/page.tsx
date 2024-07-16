@@ -150,7 +150,7 @@ function Profile() {
                 {
                     showSkeleton ? <TweekSkeleton/> :  tweeks.map((item) => (
                         <div key={item.id} className="w-full">
-                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} bookmarkedUserEmail={""} />
+                            <Tweek id={item.id} firstName={item.tweekUser.firstName} lastName={item.tweekUser.lastName} userName={item.tweekUser.userName} date={item.date} content={item.content} likes={item.likes} CurrentUserEmail={email} bookmarkedUserEmail={""} userProfile={item.tweekUser.userProfile}/>
                             <Divider />
                         </div>
                     ))

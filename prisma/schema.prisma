@@ -19,6 +19,7 @@ model TweekUser {
   userName String @unique
   firstName String?
   lastName String?
+  userProfile String?
   password String
   joinedDate DateTime @default(now())
   bio String?

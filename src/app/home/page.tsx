@@ -26,7 +26,7 @@ export default function Home() {
     const [postSaved, setPostSaved] = useState(false);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-    const { email } = useRecoilValue(UserAtom);
+    const { email, userProfile } = useRecoilValue(UserAtom);
 
     const handlePostChange = (e:  ChangeEvent<HTMLTextAreaElement>) => {
         let textarea = textareaRef.current;
@@ -97,7 +97,7 @@ export default function Home() {
                 {/* New tweek section */}
                 <div className="flex justify-start items-center mb-4 w-full pr-4">
                     <div className='w-full flex justify-start items-start gap-2 px-4'>
-                        <img src={"/user.png"} alt="user" className='rounded-full w-9 h-9 mt-6' />
+                        <img src={userProfile !== '' ? userProfile : "/user.png"} alt="user" className='rounded-full w-9 h-9 mt-6' />
                         <div className="w-full my-6">
                             <textarea 
                             ref={textareaRef}
@@ -131,7 +131,9 @@ export default function Home() {
                                 date={item.date} content={item.content}
                                 likes={item.likes}
                                 CurrentUserEmail={email}
-                                bookmarkedUserEmail={item.bookmarks?.[0]?.userId} />
+                                bookmarkedUserEmail={item.bookmarks?.[0]?.userId} 
+                                userProfile={item.tweekUser.userProfile}
+                                />
                             <Divider />
                         </div>
                     ))}

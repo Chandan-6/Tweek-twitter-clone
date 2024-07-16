@@ -34,7 +34,7 @@ export async function POST(request : NextRequest){
                 lastName,
                 password : hashedPassword,
                 joinedDate : new Date(),
-                bio : ''
+                bio : '',
             }
         });
 

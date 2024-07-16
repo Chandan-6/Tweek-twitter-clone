@@ -25,6 +25,7 @@ export default function GoogleUser() {
                             name: session.user?.name,
                             password: session.user?.email,
                             email: session.user?.email,
+                            image: session.user?.image,
                         }
                     );
 
@@ -37,7 +38,8 @@ export default function GoogleUser() {
                             userName: response.data.userName,
                             firstName: response.data.firstName,
                             lastName: response.data.lastName,
-                            bio: response.data.bio
+                            bio: response.data.bio,
+                            userProfile : response.data.userProfile
                         }));
                         router.push("/home");
                     }

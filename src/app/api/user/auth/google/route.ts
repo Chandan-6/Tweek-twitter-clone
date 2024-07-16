@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, password, email } = body;
+    const { name, password, email, image } = body;
 
     let userName = email;
     // check if user is registered with email or not
@@ -31,7 +31,8 @@ export async function POST(request: NextRequest) {
           lastName: '',
           password: hashedPassword,
           joinedDate: new Date(),
-          bio: 'State about you here...'
+          bio: 'State about you here...',
+          userProfile : image
         }
       });
 
@@ -53,6 +54,7 @@ export async function POST(request: NextRequest) {
           firstName: newUser.firstName,
           lastName: newUser.lastName,
           bio: newUser.bio,
+          userProfile : newUser.userProfile
         },
         { status: 201 }
       );
@@ -92,6 +94,7 @@ export async function POST(request: NextRequest) {
           firstName: user.firstName,
           lastName: user.lastName,
           bio: user.bio,
+          userProfile : user.userProfile
         },
         { status: 201 }
       );

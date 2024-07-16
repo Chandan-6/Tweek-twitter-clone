@@ -12,7 +12,8 @@ export async function GET(request:NextRequest) {
                     select : {
                         userName: true,
                         firstName: true,
-                        lastName: true
+                        lastName: true,
+                        userProfile : true
                     }
                 },
                 likes : {

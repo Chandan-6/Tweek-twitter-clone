@@ -56,7 +56,7 @@ export default function Tweek(props: TweekInterface) {
                     <img src={"/user.png"} alt="user" className='rounded-full w-9 h-9 md:w-7 md:h-7' />
                     <div className="flex justify-center items-center gap-2 lg:overflow-hidden mobile:gap-1">
                         <p className='font-semibold text-sm lg:text-xs lg:tracking-wide'>{props.lastName}{' '}{props.firstName}</p>
-                        <p className='text-gray-600 text-sm lg:text-xs'>@{props.userName}</p>
+                        <p className='text-gray-600 text-sm lg:text-xs w-[70%] overflow-hidden'>@{props.userName}</p>
                         <p className='text-gray-600 text-sm'>.</p>
                         <p className='text-gray-600 text-sm  lg:text-xs'>{props.date && formatDate(props.date)}</p>
                     </div>
