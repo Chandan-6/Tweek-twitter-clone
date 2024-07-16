@@ -6,6 +6,7 @@ import Loading from "@/components/Loading";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import GoogleBtn from "@/components/GooleBtn";
 
 interface formInput {
     email: string,
@@ -61,6 +62,13 @@ export default function SignUp() {
                 <img src={"/tweek.png"} alt="tweek logo" className="w-6 h-6 mb-4 sm:w-5 sm:h-5" />
                 <p className="self-start font-semibold text-lg sm:text-sm">Create your Tweek account</p>
 
+                <GoogleBtn btnTxt={"Sign up with Google"}/>
+                <div className="flex">
+                    <Divider/>
+                    <p className="text-gray-300 text-sm">or</p>
+                    <Divider/>
+                </div>
+
                 <form action="#" onSubmit={onSignUp} className="w-full space-y-5 justify-center items-start" >
                     <InputTag handleChange={handleChange} name="email" labelTxt="Email" placeholder="example@gmail.com" type="email" />
                     <InputTag handleChange={handleChange} name="firstName" labelTxt="First name" placeholder="Thread way" type="text" />
@@ -72,7 +80,7 @@ export default function SignUp() {
                 </form>
                 <div className="flex justify-center items-center text-xs gap-1">
                     <p className="text-gray-500">Already a user?</p>
-                    <p onClick={() => router.push("/login")} className="text-custom-blue-1 ">Login</p>
+                    <p onClick={() => router.push("/login")} className="text-custom-blue-1 cursor-pointer">Login</p>
                 </div>
             </div>
             <Footer />
@@ -95,5 +103,9 @@ const InputTag = (props: InputInterface) => {
         <label htmlFor={props.name} className="block mb-2 text-sm font-medium text-gray-500  sm:text-xs">{props.labelTxt}</label>
         <input onChange={(e) => props.handleChange(e)} type={props.type} name={props.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-transparent dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 sm:text-xs" placeholder={props.placeholder} required />
     </div>
+};
+
+const Divider = () => {
+    return <div className="h-px bg-gray-700 w-full"></div>
 };
 

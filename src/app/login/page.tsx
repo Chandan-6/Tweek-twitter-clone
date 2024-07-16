@@ -59,7 +59,7 @@ export default function Login() {
             <div className="w-[30%] flex flex-col items-center my-auto mx-auto justify-center py-4 px-10 select-none space-y-4 outline outline-1 outline-gray-700 rounded-lg lg:w-[40%] md2:w-[60%] sm:w-[70%]">
                 <img src={"/tweek.png"} alt="tweek logo" className="w-6 h-6 mb-4 sm:w-5 sm:h-5" />
                 <p className="self-start font-semibold text-lg sm:text-sm">Sign in to Tweek</p>
-                <GoogleBtn />
+                <GoogleBtn btnTxt={"Sign in with Google"}/>
                 <div className="flex">
                     <Divider/>
                     <p className="text-gray-300 text-sm">or</p>
@@ -73,7 +73,7 @@ export default function Login() {
                 </form>
                 <div className="flex justify-center items-center text-xs gap-1 ">
                     <p className="text-gray-500">Don't have an account?</p>
-                    <p onClick={() => router.push("/signup")} className="text-custom-blue-1">Sign up</p>
+                    <p onClick={() => router.push("/signup")} className="text-custom-blue-1 cursor-pointer">Sign up</p>
                 </div>
             </div>
             <Footer />

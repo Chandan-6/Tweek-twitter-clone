@@ -1,25 +1,37 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  
-  const path = request.nextUrl.pathname; // ✨ Represents the current path we are on
-  console.log("Path = ", path);
+  const path = request.nextUrl.pathname;
 
   const isPublicPath = path === "/login" || path === "/signup";
-
+  const isRootPath = path === "/";
   const token = request.cookies.get("tweek_token")?.value || "";
-  if(isPublicPath && token){
-    return NextResponse.redirect(new URL('/', request.nextUrl));
+
+  // Dev mode
+  // const Next_auth_token = request.cookies.get("next-auth.session-token")?.value;
+  // Production mode
+  const Next_auth_token = request.cookies.get("__Secure-next-auth.session-token")?.value;
+
+  // Redirect authenticated users from root path to home
+  if (isRootPath && token && Next_auth_token) {
+    return NextResponse.redirect(new URL('/home', request.nextUrl));
   }
 
-  if(!isPublicPath && !token){
+  // Redirect authenticated users from public paths to home
+  if (isPublicPath && token && Next_auth_token) {
+    return NextResponse.redirect(new URL('/home', request.nextUrl));
+  }
+
+  // Redirect unauthenticated users from private paths to login
+  if (!isPublicPath && !token && !Next_auth_token) {
     return NextResponse.redirect(new URL('/login', request.nextUrl));
   }
+
+  // Allow the request to proceed
+  return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
   matcher: [
     "/",
@@ -27,5 +39,5 @@ export const config = {
     "/signup",
     "/home",
     "/explore",
-    ],
+  ],
 };

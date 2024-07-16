@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import RecoilProvider from "@/RecoilProvider";
 const inter = Inter({ subsets: ["latin"] });
+import Providers from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,9 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <RecoilProvider>
-          {children}
-        </RecoilProvider>
+        <Providers>
+          <RecoilProvider>
+            {children}
+          </RecoilProvider>
+        </Providers>
       </body>
     </html>
   );

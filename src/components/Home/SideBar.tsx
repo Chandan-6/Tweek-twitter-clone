@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession, signOut } from "next-auth/react";
 import { UserAtom } from '@/Store/atom/UserAtom';
 import { Home, Search, MessagesSquare, Bookmark, User, LogOut } from 'lucide-react';
 import React from "react";
@@ -11,66 +12,70 @@ import toast, { Toaster } from 'react-hot-toast';
 // props list of Contents component
 const list = [
     {
-        id : 1,
-        logo : Home,
-        title : "Home",
-        navigate : "home"
+        id: 1,
+        logo: Home,
+        title: "Home",
+        navigate: "home"
     },
     {
-        id : 2,
-        logo : Search,
-        title : "Explore",
-        navigate : "explore"
+        id: 2,
+        logo: Search,
+        title: "Explore",
+        navigate: "explore"
     },
     {
-        id : 3,
-        logo : MessagesSquare,
-        title : "Messages",
-        navigate : "messages"
+        id: 3,
+        logo: MessagesSquare,
+        title: "Messages",
+        navigate: "messages"
     },
     {
-        id : 4,
-        logo : Bookmark,
-        title : "Bookmarks",
-        navigate : "bookmarks"
+        id: 4,
+        logo: Bookmark,
+        title: "Bookmarks",
+        navigate: "bookmarks"
     },
     {
-        id : 5,
-        logo : User,
-        title : "Profile",
-        navigate : `profile`
+        id: 5,
+        logo: User,
+        title: "Profile",
+        navigate: `profile`
     },
 ];
 
-export default function SideBar(){
+export default function SideBar() {
     const router = useRouter();
-    const {userName, firstName, lastName} = useRecoilValue(UserAtom);
-
+    const { userName, firstName, lastName } = useRecoilValue(UserAtom);
+    const { data: session } = useSession();
+    
     // logout
     const logout = async () => {
         try {
+            if(session && session.user){
+                await signOut({ callbackUrl: "/login", redirect: false });
+            }
             await axios.get("/api/user/logout");
-            toast.success("Logout successfull");
-            router.push("/");
-        } catch (error:any) {
+            toast.success("Logout successful");
+            router.push("/login");
+        } catch (error: any) {
             console.log(error.message);
             toast.error(error.message)
         }
     }
 
-    return(
+    return (
         <>
             <div className='flex flex-col justify-between items-start h-screen py-4 tablet:hidden'>
                 <div className="space-y-8 flex flex-col justify-center items-start">
                     <img src={"/tweek.png"} alt="tweek logo" className='w-6 h-6 mb-4' />
-                        {
-                            list.map((item) => <Contents key={item.id} logo={item.logo} title={item.title} navigate={item.navigate} />)
-                        }
+                    {
+                        list.map((item) => <Contents key={item.id} logo={item.logo} title={item.title} navigate={item.navigate} />)
+                    }
                 </div>
                 {/* User profile basic details */}
                 <div className="flex flex-col space-y-4">
                     <button onClick={logout} className='w-[60%] rounded-3xl bg-red-200 text-red-600 font-bold py-1 px-4 text-sm md:text-xs flex justify-center items-center gap-2'>
-                        <span><LogOut size={13}/></span><span>Logout</span>
+                        <span><LogOut size={13} /></span><span>Logout</span>
                     </button>
                     <div className="w-[85%] flex justify-between items-center gap-4">
                         <div className='flex justify-center items-center gap-2'>
@@ -83,16 +88,16 @@ export default function SideBar(){
                         {/* <Ellipsis /> */}
                     </div>
                 </div>
-                <Toaster/>
+                <Toaster />
             </div>
         </>
     )
 };
 
 interface contentsInterface {
-    logo : React.FC<React.SVGProps<SVGSVGElement>>,
-    title : string,
-    navigate : string,
+    logo: React.FC<React.SVGProps<SVGSVGElement>>,
+    title: string,
+    navigate: string,
 }
 
 const Contents: React.FC<contentsInterface> = ({ logo: Logo, title, navigate }) => {
@@ -100,10 +105,10 @@ const Contents: React.FC<contentsInterface> = ({ logo: Logo, title, navigate }) 
     const { email } = useRecoilValue(UserAtom);
 
     const handleNavigation = () => {
-        if(navigate === 'profile') { router.push(`profile?auth_user=true&email=${email}`)}
-        else { router.push(navigate)}
+        if (navigate === 'profile') { router.push(`profile?auth_user=true&email=${email}`) }
+        else { router.push(navigate) }
     }
-    return(
+    return (
         <div onClick={handleNavigation} className='flex justify-center items-center gap-4 cursor-pointer select-none'>
             <Logo className='w-6 h-6 text-white' />
             <p className='text-white font-semibold tracking-wide'>{title}</p>
