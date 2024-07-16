@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import SideBar from "@/components/Home/SideBar";
 import TrendBar from "@/components/Home/TrendBar";
 import Tweek from "@/components/Home/Tweek";
@@ -33,6 +34,8 @@ export default function ProfilePage(){
 
 function Profile() {
     
+    const { data : session } = useSession();
+    const imgSrc = session?.user?.image || "/user.png";
     const router = useRouter();
     const { email } = useRecoilValue(UserAtom);
     // Keeping null to avoid error
@@ -110,7 +113,10 @@ function Profile() {
                 {/* banner */}
                 <div className="h-screenc w-full">
                     <div className="flex justify-between bg-gray-700 w-full h-44 items-center mb-4 pr-4 relative">
-                        <img src={"/user.png"} alt="user" className='rounded-full w-24 h-24 md:w-20 md:h-20 absolute -bottom-10 left-4 outline outline-4 outline-black' />
+                        <img 
+                        src={imgSrc} 
+                        alt="user" 
+                        className='rounded-full w-24 h-24 md:w-20 md:h-20 absolute -bottom-10 left-4 outline outline-4 outline-black' />
                     </div>
 
                     {/* Edit profile option is only visible to auth_user */}

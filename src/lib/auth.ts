@@ -12,7 +12,8 @@ export const NEXT_AUTH_CONFIG = {
   secret : process.env.NEXTAUTH_SECRET!,
   callbacks : {
     redirect : ({ url, baseUrl }: any) => {
-        return `${baseUrl}/auth`;
+      console.log("base url is ", baseUrl, " and url is ", url);
+        return `${baseUrl}/googleUser`;
     },
     jwt : async ({ user, token }: any) => {
         if(user){
@@ -28,5 +29,8 @@ export const NEXT_AUTH_CONFIG = {
         }
         return session;
     },
+  },
+  pages: {
+    signOut: "/login", // Redirect to login page after sign out
   },
 };

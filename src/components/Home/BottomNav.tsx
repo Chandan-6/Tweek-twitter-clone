@@ -1,3 +1,4 @@
+import { useSession } from 'next-auth/react';
 import { Home, Search, Bookmark, User } from 'lucide-react';
 import { UserAtom } from '@/Store/atom/UserAtom';
 import { useRecoilValue } from 'recoil';
@@ -13,6 +14,8 @@ export default function BottomNav(props: BottomNavProps) {
     const pathname = usePathname();
     const router = useRouter();
     const { email } = useRecoilValue(UserAtom);
+    const { data : session } = useSession();
+    const imgSrc = session?.user?.image || ''
 
     const handleFocus = () => {
         if (props.textareaRef.current && pathname === "/home") {
@@ -49,7 +52,9 @@ export default function BottomNav(props: BottomNavProps) {
                 </button>
 
                 <button onClick={() => router.push(`profile?auth_user=true&email=${email}`)} data-tooltip-target="tooltip-profile" type="button" className="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <User className='text-white/70 size-5' />
+                    {
+                        imgSrc !== '' ? <img src={imgSrc} alt="user profile" className='size-6 rounded-full' /> : <User className='text-white/70 size-5' />
+                    }
                 </button>
 
             </div>
