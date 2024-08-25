@@ -18,6 +18,8 @@ bun dev
 
 Run using Docker 🐋
 ```
+ # before that add env as below
+
 .env.sample
 
 DATABASE_URL="database url"
@@ -37,6 +39,9 @@ POSTGRES_PASSWORD="postgres password"
 POSTGRES_DB="postgres database name"
 
 ```
+
+
+## **Command to run using docker is :** `docker compose up`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
