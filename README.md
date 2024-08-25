@@ -14,6 +14,30 @@ pnpm dev
 bun dev
 ```
 
+# OR
+
+Run using Docker 🐋
+```
+.env.sample
+
+DATABASE_URL="database url"
+
+TOKEN_SECRET="token secret"
+
+GOOGLE_CLIENT_ID="google client id"
+
+GOOGLE_CLIENT_SECRET="google client secret"
+
+NEXTAUTH_SECRET="nextauth secret"
+
+POSTGRES_USER="postgres username"
+
+POSTGRES_PASSWORD="postgres password"
+
+POSTGRES_DB="postgres database name"
+
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
