@@ -96,7 +96,7 @@ export default function Home() {
 
                 {/* New tweek section */}
                 <div className="flex justify-start items-center mb-4 w-full pr-4">
-                    <div className='w-full flex justify-start items-start gap-2 px-4'>
+                    <a href={`profile?auth_user=${true}&email=${email}`} className='w-full flex justify-start items-start gap-2 px-4'>
                         <img src={userProfile !== '' ? userProfile : "/user.png"} alt="user" className='rounded-full w-9 h-9 mt-6' />
                         <div className="w-full my-6">
                             <textarea 
@@ -111,7 +111,7 @@ export default function Home() {
                             />
 
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div className="w-full flex flex-col justify-end items-end">
                     <button onClick={post} className="w-24 float-right bg-custom-blue-1 text-white font-medium text-xs rounded-3xl m-4 py-2 text-center cursor-pointer transition-all duration-500 hover:scale-105 tablet:z-20">{isLoading ? <Loading/> : 'POST'}

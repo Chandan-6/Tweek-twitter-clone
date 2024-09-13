@@ -45,7 +45,7 @@ const list = [
 
 export default function SideBar() {
     const router = useRouter();
-    const { userName, firstName, lastName, userProfile } = useRecoilValue(UserAtom);
+    const { userName, firstName, lastName, userProfile, email } = useRecoilValue(UserAtom);
     const { data: session } = useSession();
     
     // logout
@@ -77,7 +77,7 @@ export default function SideBar() {
                     <button onClick={logout} className='w-[60%] rounded-3xl bg-red-200 text-red-600 font-bold py-1 px-4 text-sm md:text-xs flex justify-center items-center gap-2'>
                         <span><LogOut size={13} /></span><span>Logout</span>
                     </button>
-                    <div className="w-[85%] flex justify-between items-center gap-4">
+                    <a href={`profile?auth_user=true&email=${email}`} className="w-[85%] flex justify-between items-center gap-4">
                         <div className='flex justify-center items-center gap-2'>
                             <img src={userProfile !== '' ? userProfile : "/user.png"} alt="user" className='rounded-full w-9 h-9' />
                             <div>
@@ -86,7 +86,7 @@ export default function SideBar() {
                             </div>
                         </div>
                         {/* <Ellipsis /> */}
-                    </div>
+                    </a>
                 </div>
                 <Toaster />
             </div>
